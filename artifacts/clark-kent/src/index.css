@@ -1881,6 +1881,91 @@ body {
   gap: 32px;
 }
 
+/* ── Carousel layout: review card (left) + portrait (right) ── */
+.resenas-carousel {
+  display: grid;
+  grid-template-columns: 1fr 40%;
+  align-items: center;
+  gap: 48px;
+}
+
+.resenas-carousel-left {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.resena-card--carousel {
+  min-height: 260px;
+  animation: resenaFade 0.3s ease;
+}
+@keyframes resenaFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Navigation row — arrows + dots on same line (matches FAQ) */
+.resenas-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.resenas-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.resenas-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.25);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.22s, width 0.22s;
+}
+.resenas-dot--active {
+  background: #C0001A;
+  width: 24px;
+  border-radius: 4px;
+}
+.resenas-arrow {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 0, 0, 0.4);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111111;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.resenas-arrow:hover {
+  background: #C0001A;
+  border-color: #C0001A;
+  color: #ffffff;
+}
+
+/* Right portrait */
+.resenas-carousel-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.resenas-portrait {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.18));
+}
+
 .resena-card {
   background: #ffffff;
   border-radius: 16px;
@@ -3023,6 +3108,9 @@ body {
 /* ── Media queries ───────────────────────────────────────── */
 @media (max-width: 768px) {
   .resenas-grid        { grid-template-columns: 1fr; }
+  .resenas-carousel    { grid-template-columns: 1fr; gap: 24px; }
+  .resenas-carousel-right { order: -1; }
+  .resenas-portrait    { max-width: 220px; }
   .port-section        { grid-template-columns: 1fr; }
   .contacto-inner      { grid-template-columns: 1fr; gap: 48px; }
   .contacto-row        { grid-template-columns: 1fr; }

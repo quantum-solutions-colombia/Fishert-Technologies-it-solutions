@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLang } from "./LanguageContext";
 import ReviewForm from "./ReviewForm";
+import resenasPortrait from "@assets/resenas_portrait.png";
 
 const reviews = {
   es: [
@@ -77,6 +78,12 @@ export default function Resenas() {
   const { lang } = useLang();
   const list = reviews[lang];
   const [showForm, setShowForm] = useState(false);
+  const [active, setActive] = useState(0);
+
+  const prev = () => setActive((a) => (a - 1 + list.length) % list.length);
+  const next = () => setActive((a) => (a + 1) % list.length);
+
+  const current = list[active];
 
   return (
     <section id="resenas" className="resenas-section">
@@ -103,17 +110,61 @@ export default function Resenas() {
           </p>
         </div>
 
-        <div className="resenas-grid">
-          {list.map((r, i) => (
-            <div key={i} className="resena-card">
-              <Stars count={r.stars} lang={lang} />
-              <blockquote className="resena-quote">"{r.quote}"</blockquote>
+        <div className="resenas-carousel">
+          {/* LEFT — single review card carousel */}
+          <div className="resenas-carousel-left">
+            <div className="resena-card resena-card--carousel" key={active}>
+              <Stars count={current.stars} lang={lang} />
+              <blockquote className="resena-quote">"{current.quote}"</blockquote>
               <div className="resena-author">
-                <span className="resena-name">{r.author}</span>
-                <span className="resena-company">{r.company}</span>
+                <span className="resena-name">{current.author}</span>
+                <span className="resena-company">{current.company}</span>
               </div>
             </div>
-          ))}
+
+            {/* Navigation — arrows + dots on the same row (like FAQ) */}
+            <div className="resenas-nav">
+              <button
+                className="resenas-arrow"
+                onClick={prev}
+                aria-label={lang === "es" ? "anterior" : "previous"}
+              >
+                <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                  <path d="M11 4L6 9l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+
+              <div className="resenas-dots">
+                {list.map((_, i) => (
+                  <button
+                    key={i}
+                    className={`resenas-dot${i === active ? " resenas-dot--active" : ""}`}
+                    onClick={() => setActive(i)}
+                    aria-label={`${lang === "es" ? "Reseña" : "Review"} ${i + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                className="resenas-arrow"
+                onClick={next}
+                aria-label={lang === "es" ? "siguiente" : "next"}
+              >
+                <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                  <path d="M7 4l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* RIGHT — portrait image */}
+          <div className="resenas-carousel-right">
+            <img
+              className="resenas-portrait"
+              src={resenasPortrait}
+              alt={lang === "es" ? "Busto ilustrativo de reseñas" : "Reviews illustration bust"}
+            />
+          </div>
         </div>
 
         <div className="resenas-cta-row">
