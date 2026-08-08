@@ -127,8 +127,10 @@ export default function Resenas() {
               ))}
             </div>
 
-            {/* CTA on the left, navigation controls to its right */}
+            {/* CTA centered, navigation controls pinned to the right corner */}
             <div className="resenas-nav">
+              <span className="resenas-nav-spacer" aria-hidden="true" />
+
               <button className="resenas-cta-btn" onClick={() => setShowForm(true)}>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M12 20h9" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -138,36 +140,38 @@ export default function Resenas() {
                 {lang === "es" ? "Agregar reseña" : "Add a review"}
               </button>
 
-              <button
-                className="resenas-arrow"
-                onClick={prev}
-                aria-label={lang === "es" ? "anterior" : "previous"}
-              >
-                <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
-                  <path d="M11 4L6 9l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
+              <div className="resenas-nav-controls">
+                <button
+                  className="resenas-arrow"
+                  onClick={prev}
+                  aria-label={lang === "es" ? "anterior" : "previous"}
+                >
+                  <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                    <path d="M11 4L6 9l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
 
-              <div className="resenas-dots">
-                {list.map((_, i) => (
-                  <button
-                    key={i}
-                    className={`resenas-dot${i === active ? " resenas-dot--active" : ""}`}
-                    onClick={() => setActive(i)}
-                    aria-label={`${lang === "es" ? "Reseña" : "Review"} ${i + 1}`}
-                  />
-                ))}
+                <div className="resenas-dots">
+                  {list.map((_, i) => (
+                    <button
+                      key={i}
+                      className={`resenas-dot${i === active ? " resenas-dot--active" : ""}`}
+                      onClick={() => setActive(i)}
+                      aria-label={`${lang === "es" ? "Reseña" : "Review"} ${i + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  className="resenas-arrow"
+                  onClick={next}
+                  aria-label={lang === "es" ? "siguiente" : "next"}
+                >
+                  <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                    <path d="M7 4l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
               </div>
-
-              <button
-                className="resenas-arrow"
-                onClick={next}
-                aria-label={lang === "es" ? "siguiente" : "next"}
-              >
-                <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
-                  <path d="M7 4l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
             </div>
           </div>
 

@@ -1857,7 +1857,7 @@ body {
 .resenas-heading {
   font-family: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
   font-weight: 700;
-  font-size: clamp(26px, 3vw, 44px);
+  font-size: clamp(30px, 3.6vw, 54px);
   line-height: 1.02;
   letter-spacing: -0.01em;
   color: #000000;
@@ -1899,46 +1899,53 @@ body {
   gap: 28px;
 }
 
-/* Two reviews side by side — compact */
+/* Two reviews side by side */
 .resenas-cards-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  max-width: 620px;
+  gap: 24px;
+  max-width: 720px;
   margin: 0 auto;
-  animation: resenaFade 0.3s ease;
+  animation: resenaFade 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* Keep review cards small, content centered */
+/* Review cards — medium, content centered */
 .resena-card--carousel {
-  min-height: 220px;
-  padding: 22px 20px;
+  min-height: 260px;
+  padding: 28px 24px;
   align-items: center;
   text-align: center;
 }
 .resena-card--carousel .resena-stars { justify-content: center; }
 .resena-card--carousel .resena-quote {
   text-align: center;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.55;
 }
 .resena-card--carousel .resena-author { align-items: center; text-align: center; }
 @keyframes resenaFade {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Navigation row — CTA on the left, then arrows + dots */
+/* Navigation row — CTA centered, controls pinned to the right corner */
 .resenas-nav {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 16px;
   width: 100%;
-  max-width: 620px;
+  max-width: 720px;
   margin: 0 auto;
-  flex-wrap: wrap;
 }
-.resenas-nav .resenas-cta-btn { margin-right: 8px; }
+.resenas-nav-spacer { display: block; }
+.resenas-nav .resenas-cta-btn { justify-self: center; }
+.resenas-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-self: end;
+}
 .resenas-dots {
   display: flex;
   gap: 8px;
@@ -1989,10 +1996,10 @@ body {
    to the very bottom edge of the section so its base rests on the orange wave */
 .resenas-portrait {
   position: absolute;
-  right: 6%;
+  right: 4%;
   bottom: 0;
-  width: 34%;
-  max-width: 440px;
+  width: 40%;
+  max-width: 540px;
   height: auto;
   display: block;
   z-index: 1;
@@ -2434,7 +2441,7 @@ body {
   .rf-slide-inner { padding: 28px 0 20px; }
 }
 
-/* ── Policy pages ────────────────────────────────────────── */
+/* ── Policy pages ─────────────────��──────────────────────── */
 .policy-page {
   min-height: 100vh;
   background: #ffffff;
