@@ -1849,16 +1849,16 @@ body {
 .resenas-header {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 12px;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
 }
 
 .resenas-heading {
   font-family: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
   font-weight: 700;
-  font-size: clamp(30px, 4.4vw, 64px);
-  line-height: 1;
+  font-size: clamp(26px, 3vw, 44px);
+  line-height: 1.02;
   letter-spacing: -0.01em;
   color: #000000;
   text-transform: uppercase;
@@ -1899,37 +1899,46 @@ body {
   gap: 28px;
 }
 
-/* Two reviews side by side */
+/* Two reviews side by side — compact */
 .resenas-cards-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  gap: 20px;
+  max-width: 620px;
+  margin: 0 auto;
   animation: resenaFade 0.3s ease;
 }
 
-/* Keep review cards compact, content centered */
+/* Keep review cards small, content centered */
 .resena-card--carousel {
-  min-height: 300px;
+  min-height: 220px;
+  padding: 22px 20px;
   align-items: center;
   text-align: center;
 }
 .resena-card--carousel .resena-stars { justify-content: center; }
-.resena-card--carousel .resena-quote { text-align: center; }
+.resena-card--carousel .resena-quote {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+}
 .resena-card--carousel .resena-author { align-items: center; text-align: center; }
 @keyframes resenaFade {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Navigation row — arrows + dots + CTA on the same line */
+/* Navigation row — CTA on the left, then arrows + dots */
 .resenas-nav {
   display: flex;
   align-items: center;
   gap: 16px;
   width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
   flex-wrap: wrap;
 }
-.resenas-nav .resenas-cta-btn { margin-left: auto; }
+.resenas-nav .resenas-cta-btn { margin-right: 8px; }
 .resenas-dots {
   display: flex;
   gap: 8px;
