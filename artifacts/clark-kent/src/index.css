@@ -3159,8 +3159,10 @@ body {
   .resenas-carousel    { grid-template-columns: 1fr; gap: 24px; min-height: 0; }
   .resenas-carousel-left { align-items: stretch; }
   .resenas-cards-row   { grid-template-columns: 1fr; }
-  .resenas-nav         { justify-content: center; }
-  .resenas-nav .resenas-cta-btn { margin-left: 0; }
+  .resenas-nav         { grid-template-columns: 1fr; justify-items: center; gap: 20px; }
+  .resenas-nav-spacer  { display: none; }
+  .resenas-nav .resenas-cta-btn { justify-self: center; }
+  .resenas-nav-controls { justify-self: center; }
   .resenas-carousel-right { display: none; }
   .resenas-portrait    { position: static; width: 220px; max-width: 60%; margin: 24px auto 0; }
   .port-section        { grid-template-columns: 1fr; }
