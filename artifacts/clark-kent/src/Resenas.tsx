@@ -157,14 +157,8 @@ export default function Resenas() {
             </div>
           </div>
 
-          {/* RIGHT — portrait image */}
-          <div className="resenas-carousel-right">
-            <img
-              className="resenas-portrait"
-              src={resenasPortrait}
-              alt={lang === "es" ? "Busto ilustrativo de reseñas" : "Reviews illustration bust"}
-            />
-          </div>
+          {/* RIGHT — empty spacer reserving the portrait column */}
+          <div className="resenas-carousel-right" aria-hidden="true" />
         </div>
 
         <div className="resenas-cta-row">
@@ -177,6 +171,13 @@ export default function Resenas() {
             {lang === "es" ? "Agregar reseña" : "Add a review"}
           </button>
         </div>
+
+        {/* Portrait — grounded strictly at the bottom edge of the section */}
+        <img
+          className="resenas-portrait"
+          src={resenasPortrait}
+          alt={lang === "es" ? "Busto ilustrativo de reseñas" : "Reviews illustration bust"}
+        />
       </div>
 
       {/* Bottom wave — single boundary into Preguntas Frecuentes (orange).
