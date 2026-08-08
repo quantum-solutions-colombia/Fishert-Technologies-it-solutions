@@ -1905,7 +1905,7 @@ body {
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   max-width: 720px;
-  margin: 0 auto;
+  margin: 0 auto 0 0;
   animation: resenaFade 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
@@ -1936,7 +1936,7 @@ body {
   gap: 16px;
   width: 100%;
   max-width: 720px;
-  margin: 0 auto;
+  margin: 0 auto 0 0;
 }
 .resenas-nav-spacer { display: block; }
 .resenas-nav .resenas-cta-btn { justify-self: center; }
@@ -1996,10 +1996,10 @@ body {
    to the very bottom edge of the section so its base rests on the orange wave */
 .resenas-portrait {
   position: absolute;
-  right: 4%;
+  right: 5%;
   bottom: 0;
-  width: 40%;
-  max-width: 540px;
+  width: 32%;
+  max-width: 440px;
   height: auto;
   display: block;
   z-index: 1;
