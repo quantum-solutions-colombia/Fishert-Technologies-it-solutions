@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLang } from "./LanguageContext";
 import ReviewForm from "./ReviewForm";
+import resenasPortrait from "@assets/resenas_portrait.png";
 
 const reviews = {
   es: [
@@ -77,6 +78,12 @@ export default function Resenas() {
   const { lang } = useLang();
   const list = reviews[lang];
   const [showForm, setShowForm] = useState(false);
+  const [active, setActive] = useState(0);
+
+  const prev = () => setActive((a) => (a - 1 + list.length) % list.length);
+  const next = () => setActive((a) => (a + 1) % list.length);
+
+  const current = list[active];
 
   return (
     <section id="resenas" className="resenas-section">
@@ -92,45 +99,98 @@ export default function Resenas() {
       </svg>
 
       <div className="resenas-inner" style={{ paddingTop: 60 }}>
-        <div className="resenas-header">
-          <h2 className="resenas-heading">
-            {lang === "es" ? "Lo que dicen nuestros clientes." : "What our clients say."}
-          </h2>
-          <p className="resenas-sub">
-            {lang === "es"
-              ? "Clientes satisfechos que hablan de nuestro trabajo."
-              : "Satisfied clients who speak about our work."}
-          </p>
-        </div>
+        <div className="resenas-carousel">
+          {/* LEFT — heading + two visible reviews + navigation */}
+          <div className="resenas-carousel-left">
+            <div className="resenas-header">
+              <h2 className="resenas-heading">
+                {lang === "es" ? "Lo que dicen nuestros clientes." : "What our clients say."}
+              </h2>
+              <p className="resenas-sub">
+                {lang === "es"
+                  ? "Clientes satisfechos que hablan de nuestro trabajo."
+                  : "Satisfied clients who speak about our work."}
+              </p>
+            </div>
 
-        <div className="resenas-grid">
-          {list.map((r, i) => (
-            <div key={i} className="resena-card">
-              <Stars count={r.stars} lang={lang} />
-              <blockquote className="resena-quote">"{r.quote}"</blockquote>
-              <div className="resena-author">
-                <span className="resena-name">{r.author}</span>
-                <span className="resena-company">{r.company}</span>
+            {/* Two reviews visible at a time */}
+            <div className="resenas-cards-row" key={active}>
+              {[current, list[(active + 1) % list.length]].map((r, i) => (
+                <div className="resena-card resena-card--carousel" key={i}>
+                  <Stars count={r.stars} lang={lang} />
+                  <blockquote className="resena-quote">"{r.quote}"</blockquote>
+                  <div className="resena-author">
+                    <span className="resena-name">{r.author}</span>
+                    <span className="resena-company">{r.company}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA centered, navigation controls pinned to the right corner */}
+            <div className="resenas-nav">
+              <span className="resenas-nav-spacer" aria-hidden="true" />
+
+              <button className="resenas-cta-btn" onClick={() => setShowForm(true)}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 20h9" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"
+                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                {lang === "es" ? "Agregar reseña" : "Add a review"}
+              </button>
+
+              <div className="resenas-nav-controls">
+                <button
+                  className="resenas-arrow"
+                  onClick={prev}
+                  aria-label={lang === "es" ? "anterior" : "previous"}
+                >
+                  <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                    <path d="M11 4L6 9l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+
+                <div className="resenas-dots">
+                  {list.map((_, i) => (
+                    <button
+                      key={i}
+                      className={`resenas-dot${i === active ? " resenas-dot--active" : ""}`}
+                      onClick={() => setActive(i)}
+                      aria-label={`${lang === "es" ? "Reseña" : "Review"} ${i + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  className="resenas-arrow"
+                  onClick={next}
+                  aria-label={lang === "es" ? "siguiente" : "next"}
+                >
+                  <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                    <path d="M7 4l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
 
-        <div className="resenas-cta-row">
-          <button className="resenas-cta-btn" onClick={() => setShowForm(true)}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 20h9" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"
-                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            {lang === "es" ? "Agregar reseña" : "Add a review"}
-          </button>
+          {/* RIGHT — empty spacer reserving the portrait column */}
+          <div className="resenas-carousel-right" aria-hidden="true" />
         </div>
       </div>
+
+      {/* Portrait — grounded strictly at the bottom edge of the whole section */}
+      <img
+        className="resenas-portrait"
+        src={resenasPortrait}
+        alt={lang === "es" ? "Busto ilustrativo de reseñas" : "Reviews illustration bust"}
+      />
 
       {/* Bottom wave — single boundary into Preguntas Frecuentes (orange).
           Same signature wave used across the FAQ section. */}
       <svg
+        className="resenas-bottom-wave"
         style={{ display: "block", width: "100%", height: 80, marginTop: 40 }}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1440 80"

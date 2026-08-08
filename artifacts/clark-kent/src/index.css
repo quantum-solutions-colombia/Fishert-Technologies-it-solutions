@@ -1843,6 +1843,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  position: relative;
 }
 
 .resenas-header {
@@ -1850,14 +1851,14 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .resenas-heading {
   font-family: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
   font-weight: 700;
-  font-size: clamp(32px, 4.4vw, 76px);
-  line-height: 1;
+  font-size: clamp(30px, 3.6vw, 54px);
+  line-height: 1.02;
   letter-spacing: -0.01em;
   color: #000000;
   text-transform: uppercase;
@@ -1879,6 +1880,137 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
+}
+
+/* ── Carousel layout: reviews (left) + portrait column (right) ── */
+.resenas-carousel {
+  display: grid;
+  grid-template-columns: 1fr 34%;
+  align-items: start;
+  gap: 40px;
+  min-height: 480px;
+}
+
+.resenas-carousel-left {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 28px;
+}
+
+/* Two reviews side by side */
+.resenas-cards-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 720px;
+  margin: 0 auto 0 0;
+  animation: resenaFade 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Review cards — medium, content centered */
+.resena-card--carousel {
+  min-height: 260px;
+  padding: 28px 24px;
+  align-items: center;
+  text-align: center;
+}
+.resena-card--carousel .resena-stars { justify-content: center; }
+.resena-card--carousel .resena-quote {
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.resena-card--carousel .resena-author { align-items: center; text-align: center; }
+@keyframes resenaFade {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Navigation row — CTA centered, controls pinned to the right corner */
+.resenas-nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto 0 0;
+}
+.resenas-nav-spacer { display: block; }
+.resenas-nav .resenas-cta-btn { justify-self: center; }
+.resenas-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-self: end;
+}
+.resenas-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.resenas-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.25);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.22s, width 0.22s;
+}
+.resenas-dot--active {
+  background: #C0001A;
+  width: 24px;
+  border-radius: 4px;
+}
+.resenas-arrow {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 0, 0, 0.4);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111111;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.resenas-arrow:hover {
+  background: #C0001A;
+  border-color: #C0001A;
+  color: #ffffff;
+}
+
+/* Right column — empty spacer that only reserves the portrait's width */
+.resenas-carousel-right {
+  align-self: stretch;
+}
+
+/* Portrait — child of .resenas-section (position: relative), anchored strictly
+   to the very bottom edge of the section so its base rests on the orange wave */
+.resenas-portrait {
+  position: absolute;
+  right: 3%;
+  bottom: 0;
+  width: 36%;
+  max-width: 500px;
+  height: auto;
+  display: block;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.16));
+}
+
+/* Bottom wave sits above the bust base so the figure looks planted */
+.resenas-bottom-wave {
+  position: relative;
+  z-index: 2;
 }
 
 .resena-card {
@@ -2011,10 +2143,10 @@ body {
   animation: rf-fade-in 0.2s ease;
 }
 
-/* Modal card — dark checkerboard */
+/* Modal card — light checkerboard (matches reseñas section) */
 .rf-modal {
-  background-color: #1a1a1a;
-  background-image: repeating-conic-gradient(#0a0a0a 0% 25%, #2e2e2e 0% 50%);
+  background-color: #f0f0f0;
+  background-image: repeating-conic-gradient(#ffffff 0% 25%, #d8d8d8 0% 50%);
   background-size: 56px 56px;
   border-radius: 20px;
   width: 100%;
@@ -2024,7 +2156,7 @@ body {
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.35);
   animation: rf-slide-up 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   flex-direction: column;
@@ -2038,9 +2170,9 @@ body {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(0,0,0,0.14);
+  background: rgba(0,0,0,0.05);
+  color: rgba(0,0,0,0.5);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -2048,15 +2180,15 @@ body {
   transition: background 0.18s, color 0.18s;
   z-index: 2;
 }
-.rf-close:hover { background: rgba(255,255,255,0.14); color: #fff; }
+.rf-close:hover { background: rgba(0,0,0,0.12); color: #111; }
 
-/* ── TABS (cslider style) ──────────────────────────────── */
+/* ── TABS (cslider style) ─────��────────────────────────── */
 .rf-tabs {
   display: flex;
   justify-content: center;
   gap: 0;
   margin-bottom: 0;
-  border-bottom: 1px solid rgba(255,255,255,0.12);
+  border-bottom: 1px solid rgba(0,0,0,0.14);
   flex-shrink: 0;
 }
 .rf-tab {
@@ -2065,7 +2197,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
+  color: rgba(0,0,0,0.32);
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
@@ -2077,14 +2209,14 @@ body {
 }
 .rf-tab + .rf-tab { margin-left: 24px; }
 .rf-tab--active {
-  color: #ffffff;
+  color: #111111;
   border-bottom-color: #C0001A;
 }
 .rf-tab--done {
-  color: rgba(255,255,255,0.5);
+  color: rgba(0,0,0,0.5);
   cursor: pointer;
 }
-.rf-tab--done:hover { color: rgba(255,255,255,0.75); }
+.rf-tab--done:hover { color: rgba(0,0,0,0.75); }
 
 /* ── SLIDING TRACK ────────────────────────────────────── */
 .rf-track-wrap {
@@ -2121,19 +2253,17 @@ body {
   font-family: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
   font-size: clamp(22px, 3vw, 32px);
   font-weight: 700;
-  color: #ffffff;
+  color: #111111;
   margin: 0;
   line-height: 1.05;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.8);
 }
 .rf-sub {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
-  color: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
   margin: -8px 0 4px;
   letter-spacing: 0.04em;
   line-height: 1.5;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.7);
 }
 
 /* ── Star rating ─────────────────────────────────────── */
@@ -2146,7 +2276,7 @@ body {
   background: none;
   border: none;
   font-size: 44px;
-  color: rgba(255,255,255,0.18);
+  color: rgba(0,0,0,0.18);
   cursor: pointer;
   padding: 0;
   line-height: 1;
@@ -2181,17 +2311,16 @@ body {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  color: rgba(0,0,0,0.7);
 }
 .rf-req { color: #C0001A; }
 
 .rf-input {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
-  color: #ffffff;
-  background: rgba(0,0,0,0.45);
-  border: 1px solid rgba(255,255,255,0.18);
+  color: #111111;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(0,0,0,0.2);
   border-radius: 10px;
   padding: 11px 14px;
   box-sizing: border-box;
@@ -2200,10 +2329,10 @@ body {
   transition: border-color 0.18s, background 0.18s;
   text-align: left;
 }
-.rf-input::placeholder { color: rgba(255,255,255,0.35); }
+.rf-input::placeholder { color: rgba(0,0,0,0.4); }
 .rf-input:focus {
   border-color: #C0001A;
-  background: rgba(0,0,0,0.55);
+  background: #ffffff;
 }
 .rf-textarea {
   resize: none;
@@ -2229,7 +2358,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 11px;
   font-weight: 600;
-  color: rgba(255,255,255,0.45);
+  color: rgba(0,0,0,0.5);
   margin-left: 8px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2241,7 +2370,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding-top: 20px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid rgba(0,0,0,0.1);
   flex-shrink: 0;
 }
 
@@ -2256,13 +2385,13 @@ body {
   border: none;
   padding: 0;
   cursor: pointer;
-  color: #ffffff;
+  color: #111111;
   transition: color 0.2s, opacity 0.2s;
   text-decoration: none;
 }
 .rf-txt-btn:hover { color: #C0001A; }
-.rf-txt-btn--dim { color: rgba(255,255,255,0.35); }
-.rf-txt-btn--dim:hover { color: rgba(255,255,255,0.75); }
+.rf-txt-btn--dim { color: rgba(0,0,0,0.4); }
+.rf-txt-btn--dim:hover { color: rgba(0,0,0,0.75); }
 .rf-txt-btn--disabled { opacity: 0.25; pointer-events: none; }
 .rf-txt-btn--hidden { opacity: 0; pointer-events: none; }
 
@@ -2283,13 +2412,13 @@ body {
   font-family: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
   font-size: clamp(26px, 3vw, 36px);
   font-weight: 700;
-  color: #ffffff;
+  color: #111111;
   margin: 0;
 }
 .rf-success-sub {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
-  color: rgba(255,255,255,0.45);
+  color: rgba(0,0,0,0.5);
   margin: 0;
   letter-spacing: 0.04em;
 }
@@ -2309,7 +2438,7 @@ body {
   .rf-slide-inner { padding: 28px 0 20px; }
 }
 
-/* ── Policy pages ────────────────────────────────────────── */
+/* ── Policy pages ─────────────────��──────────────────────── */
 .policy-page {
   min-height: 100vh;
   background: #ffffff;
@@ -2651,7 +2780,7 @@ body {
   border-bottom-color: #C0001A;
 }
 
-/* ── Slider track ────────────────────────────────────────── */
+/* ── Slider track ──────────────────────��─────────────────── */
 .cslider-track-wrap {
   flex: 1;
   overflow: hidden;
@@ -3023,6 +3152,16 @@ body {
 /* ── Media queries ───────────────────────────────────────── */
 @media (max-width: 768px) {
   .resenas-grid        { grid-template-columns: 1fr; }
+  .resenas-heading     { white-space: normal; text-wrap: balance; }
+  .resenas-carousel    { grid-template-columns: 1fr; gap: 24px; min-height: 0; }
+  .resenas-carousel-left { align-items: stretch; }
+  .resenas-cards-row   { grid-template-columns: 1fr; }
+  .resenas-nav         { grid-template-columns: 1fr; justify-items: center; gap: 20px; }
+  .resenas-nav-spacer  { display: none; }
+  .resenas-nav .resenas-cta-btn { justify-self: center; }
+  .resenas-nav-controls { justify-self: center; }
+  .resenas-carousel-right { display: none; }
+  .resenas-portrait    { position: static; width: 220px; max-width: 60%; margin: 24px auto 0; }
   .port-section        { grid-template-columns: 1fr; }
   .contacto-inner      { grid-template-columns: 1fr; gap: 48px; }
   .contacto-row        { grid-template-columns: 1fr; }
@@ -3340,7 +3479,7 @@ body {
   .faq2-question { white-space: normal; }
 }
 
-/* ══════════════════════════════════════════════════════════
+/* ═════════════════════════���════════════════════════════════
    SERVICIO DETALLE — /servicios/:slug
    ══════════════════════════════════════════════════════════ */
 .svc-page { width: 100%; }
