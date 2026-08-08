@@ -99,30 +99,35 @@ export default function Resenas() {
       </svg>
 
       <div className="resenas-inner" style={{ paddingTop: 60 }}>
-        <div className="resenas-header">
-          <h2 className="resenas-heading">
-            {lang === "es" ? "Lo que dicen nuestros clientes." : "What our clients say."}
-          </h2>
-          <p className="resenas-sub">
-            {lang === "es"
-              ? "Clientes satisfechos que hablan de nuestro trabajo."
-              : "Satisfied clients who speak about our work."}
-          </p>
-        </div>
-
         <div className="resenas-carousel">
-          {/* LEFT — single review card carousel */}
+          {/* LEFT — heading + two visible reviews + navigation */}
           <div className="resenas-carousel-left">
-            <div className="resena-card resena-card--carousel" key={active}>
-              <Stars count={current.stars} lang={lang} />
-              <blockquote className="resena-quote">"{current.quote}"</blockquote>
-              <div className="resena-author">
-                <span className="resena-name">{current.author}</span>
-                <span className="resena-company">{current.company}</span>
-              </div>
+            <div className="resenas-header">
+              <h2 className="resenas-heading">
+                {lang === "es" ? "Lo que dicen nuestros clientes." : "What our clients say."}
+              </h2>
+              <p className="resenas-sub">
+                {lang === "es"
+                  ? "Clientes satisfechos que hablan de nuestro trabajo."
+                  : "Satisfied clients who speak about our work."}
+              </p>
             </div>
 
-            {/* Navigation — arrows + dots on the same row (like FAQ) */}
+            {/* Two reviews visible at a time */}
+            <div className="resenas-cards-row" key={active}>
+              {[current, list[(active + 1) % list.length]].map((r, i) => (
+                <div className="resena-card resena-card--carousel" key={i}>
+                  <Stars count={r.stars} lang={lang} />
+                  <blockquote className="resena-quote">"{r.quote}"</blockquote>
+                  <div className="resena-author">
+                    <span className="resena-name">{r.author}</span>
+                    <span className="resena-company">{r.company}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Navigation + CTA all on the same row */}
             <div className="resenas-nav">
               <button
                 className="resenas-arrow"
@@ -154,35 +159,34 @@ export default function Resenas() {
                   <path d="M7 4l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
+
+              <button className="resenas-cta-btn" onClick={() => setShowForm(true)}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 20h9" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"
+                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                {lang === "es" ? "Agregar reseña" : "Add a review"}
+              </button>
             </div>
           </div>
 
           {/* RIGHT — empty spacer reserving the portrait column */}
           <div className="resenas-carousel-right" aria-hidden="true" />
         </div>
-
-        <div className="resenas-cta-row">
-          <button className="resenas-cta-btn" onClick={() => setShowForm(true)}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 20h9" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"
-                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            {lang === "es" ? "Agregar reseña" : "Add a review"}
-          </button>
-        </div>
-
-        {/* Portrait — grounded strictly at the bottom edge of the section */}
-        <img
-          className="resenas-portrait"
-          src={resenasPortrait}
-          alt={lang === "es" ? "Busto ilustrativo de reseñas" : "Reviews illustration bust"}
-        />
       </div>
+
+      {/* Portrait — grounded strictly at the bottom edge of the whole section */}
+      <img
+        className="resenas-portrait"
+        src={resenasPortrait}
+        alt={lang === "es" ? "Busto ilustrativo de reseñas" : "Reviews illustration bust"}
+      />
 
       {/* Bottom wave — single boundary into Preguntas Frecuentes (orange).
           Same signature wave used across the FAQ section. */}
       <svg
+        className="resenas-bottom-wave"
         style={{ display: "block", width: "100%", height: 80, marginTop: 40 }}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1440 80"
