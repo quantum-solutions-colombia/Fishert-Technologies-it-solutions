@@ -99,20 +99,20 @@ export default function Resenas() {
       </svg>
 
       <div className="resenas-inner" style={{ paddingTop: 60 }}>
-        <div className="resenas-carousel">
-          {/* LEFT — heading + single review card carousel */}
-          <div className="resenas-carousel-left">
-            <div className="resenas-header">
-              <h2 className="resenas-heading">
-                {lang === "es" ? "Lo que dicen nuestros clientes." : "What our clients say."}
-              </h2>
-              <p className="resenas-sub">
-                {lang === "es"
-                  ? "Clientes satisfechos que hablan de nuestro trabajo."
-                  : "Satisfied clients who speak about our work."}
-              </p>
-            </div>
+        <div className="resenas-header">
+          <h2 className="resenas-heading">
+            {lang === "es" ? "Lo que dicen nuestros clientes." : "What our clients say."}
+          </h2>
+          <p className="resenas-sub">
+            {lang === "es"
+              ? "Clientes satisfechos que hablan de nuestro trabajo."
+              : "Satisfied clients who speak about our work."}
+          </p>
+        </div>
 
+        <div className="resenas-carousel">
+          {/* LEFT — single review card carousel */}
+          <div className="resenas-carousel-left">
             <div className="resena-card resena-card--carousel" key={active}>
               <Stars count={current.stars} lang={lang} />
               <blockquote className="resena-quote">"{current.quote}"</blockquote>

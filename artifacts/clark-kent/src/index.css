@@ -1856,13 +1856,12 @@ body {
 .resenas-heading {
   font-family: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
   font-weight: 700;
-  font-size: clamp(32px, 4vw, 60px);
-  line-height: 1.02;
+  font-size: clamp(30px, 4.4vw, 64px);
+  line-height: 1;
   letter-spacing: -0.01em;
   color: #000000;
   text-transform: uppercase;
-  white-space: normal;
-  text-wrap: balance;
+  white-space: nowrap;
   margin: 0;
 }
 
@@ -1882,13 +1881,13 @@ body {
   gap: 32px;
 }
 
-/* ── Carousel layout: heading + review card (left) + portrait (right) ── */
+/* ── Carousel layout: review card (left) + portrait (right) ── */
 .resenas-carousel {
   display: grid;
   grid-template-columns: 1fr 42%;
-  align-items: stretch;
+  align-items: end;
   gap: 40px;
-  min-height: 520px;
+  min-height: 560px;
 }
 
 .resenas-carousel-left {
@@ -1897,15 +1896,21 @@ body {
   align-items: flex-start;
   justify-content: center;
   gap: 24px;
+  height: 100%;
 }
 
-/* Keep each review card at its original size (not stretched to fill column) */
+/* Keep each review card at its original size, content centered */
 .resena-card--carousel {
   width: 100%;
   max-width: 380px;
   min-height: 300px;
+  align-items: center;
+  text-align: center;
   animation: resenaFade 0.3s ease;
 }
+.resena-card--carousel .resena-stars { justify-content: center; }
+.resena-card--carousel .resena-quote { text-align: center; }
+.resena-card--carousel .resena-author { align-items: center; text-align: center; }
 @keyframes resenaFade {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -1966,13 +1971,14 @@ body {
   position: relative;
   align-self: stretch;
   height: 100%;
+  overflow: hidden;
 }
 .resenas-portrait {
   position: absolute;
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  height: 108%;
+  height: 115%;
   width: auto;
   max-width: none;
   display: block;
@@ -3121,12 +3127,12 @@ body {
 /* ── Media queries ───────────────────────────────────────── */
 @media (max-width: 768px) {
   .resenas-grid        { grid-template-columns: 1fr; }
+  .resenas-heading     { white-space: normal; text-wrap: balance; }
   .resenas-carousel    { grid-template-columns: 1fr; gap: 24px; min-height: 0; }
-  .resenas-carousel-left { align-items: center; }
-  .resenas-carousel-left .resenas-header { align-items: center; text-align: center; }
+  .resenas-carousel-left { align-items: center; height: auto; }
   .resena-card--carousel,
   .resenas-nav         { max-width: 460px; }
-  .resenas-carousel-right { order: -1; position: static; height: auto; display: flex; justify-content: center; }
+  .resenas-carousel-right { order: -1; position: static; height: auto; overflow: visible; display: flex; justify-content: center; }
   .resenas-portrait    { position: static; transform: none; height: auto; width: auto; max-width: 240px; }
   .port-section        { grid-template-columns: 1fr; }
   .contacto-inner      { grid-template-columns: 1fr; gap: 48px; }
